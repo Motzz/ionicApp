@@ -1,0 +1,66 @@
+<br />
+<ion-button size="small" (click)="fontSize = fontSize + 1">+</ion-button>
+<ion-button size="small" (click)="fontSize = fontSize - 1">-</ion-button>
+<!-- manual cuman 1 -->
+<ion-card>
+  <ion-card-content>
+    <ion-img src="{{ productImg }}"> </ion-img>
+    <h4>
+      <b [ngStyle]="{ fontSize: fontSize + 'pt' }">{{ productName }}</b>
+    </h4>
+    <!-- kalo product ga sama dengan harga diskon baru tampil -->
+    <p
+      [ngStyle]="{ fontSize: fontSize + 'pt' }"
+      *ngIf="productPrice != netPrice"
+    >
+      Harga awal: Rp.
+      <s [ngStyle]="{ color: 'red', 'font-weight': 'bold' }">{{
+        productPrice
+      }}</s>
+    </p>
+    <p [ngStyle]="{ fontSize: fontSize + 'pt' }">
+      Harga diskon: Rp. {{ netPrice }}
+    </p>
+    <p *ngIf="kodeVoucher">Voucher {{ kodeVoucher }} akan dipakai</p>
+  </ion-card-content>
+</ion-card>
+<ion-item>
+  <ion-label position="floating">Kode Voucher</ion-label>
+  <ion-input
+    (input)="checkVoucher($event)"
+    [(ngModel)]="kodeVoucher"
+  ></ion-input>
+</ion-item>
+
+<ion-button
+  [color]="btnColor"
+  [disabled]="btnDisable"
+  (click)="applyDiscount()"
+>
+  Apply Diskon
+</ion-button>
+<!-- forr -->
+<ion-card *ngFor="let product of products; let i = index">
+  <ion-chip>{{ i + 1 }}</ion-chip>
+  <ion-card-content>
+    <ion-img src="../assets/img/{{ product.url }}"> </ion-img>
+    <h4>
+      <b [ngStyle]="{ fontSize: fontSize + 'pt' }">{{ product.name }}</b>
+    </h4>
+    <!-- kalo product ga sama dengan harga diskon baru tampil -->
+    <p [ngStyle]="{ fontSize: fontSize + 'pt' }" *ngIf="product.disc > 0">
+      Harga awal: Rp.
+      <s [ngStyle]="{ color: 'red', 'font-weight': 'bold' }">{{
+        product.price
+      }}</s>
+    </p>
+    <p [ngStyle]="{ fontSize: fontSize + 'pt' }">
+      Harga diskon: Rp. {{ product.price - product.price * product.disc }}
+    </p>
+    <ion-button size="small" (click)="show[i] = !show[i]">show more</ion-button>
+    <ul *ngIf="show[i]">
+      <li *ngFor="let specs of product.spec">{{ specs }}</li>
+    </ul>
+    <!-- <p *ngIf="kodeVoucher">Voucher {{ kodeVoucher }} akan dipakai</p> -->
+  </ion-card-content>
+</ion-card>
