@@ -1,0 +1,15 @@
+<ion-card *ngFor="let movies of movie; let i = index">
+  <ion-chip>{{ i + 1 }}</ion-chip>
+  <ion-card-content>
+    <ion-img src="{{ movies.poster }}"> </ion-img>
+    <h4>
+      <b [ngStyle]="{ fontSize: fontSize + 'pt' }">{{ movies.judul }}</b>
+    </h4>
+    <ion-label color="primary" routerLink="/movie/{{ i }}">detail</ion-label>
+    <br />
+    <ion-button size="small" (click)="show[i] = !show[i]"
+      >detail below</ion-button
+    >
+    <p *ngIf="show[i]">{{ movies.sinopsis }}</p>
+  </ion-card-content>
+</ion-card>

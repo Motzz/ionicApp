@@ -1,3 +1,8 @@
+<app-productform></app-productform>
+
+<h1>{{ json }}</h1>
+<ion-button (click)="listProduct()">Get Product</ion-button>
+
 <br />
 <ion-button size="small" (click)="fontSize = fontSize + 1">+</ion-button>
 <ion-button size="small" (click)="fontSize = fontSize - 1">-</ion-button>
@@ -31,7 +36,6 @@
     [(ngModel)]="kodeVoucher"
   ></ion-input>
 </ion-item>
-
 <ion-button
   [color]="btnColor"
   [disabled]="btnDisable"
@@ -39,11 +43,15 @@
 >
   Apply Diskon
 </ion-button>
-<!-- forr -->
+<!-- end manual cuman 1 -->
+<!-- forr dr array -->
 <ion-card *ngFor="let product of products; let i = index">
-  <ion-chip>{{ i + 1 }}</ion-chip>
+  <ion-chip>{{ kata }}{{ i + 1 }}</ion-chip>
   <ion-card-content>
-    <ion-img src="../assets/img/{{ product.url }}"> </ion-img>
+    <ion-img
+      src="https://ubaya.fun/hybrid/160419007/gambarProduct/{{ product.url }}"
+    >
+    </ion-img>
     <h4>
       <b [ngStyle]="{ fontSize: fontSize + 'pt' }">{{ product.name }}</b>
     </h4>
@@ -58,6 +66,10 @@
       Harga diskon: Rp. {{ product.price - product.price * product.disc }}
     </p>
     <ion-button size="small" (click)="show[i] = !show[i]">show more</ion-button>
+    <ion-label color="primary" routerLink="/productDetail/{{ i + 1 }}">
+      detail</ion-label
+    >
+
     <ul *ngIf="show[i]">
       <li *ngFor="let specs of product.spec">{{ specs }}</li>
     </ul>

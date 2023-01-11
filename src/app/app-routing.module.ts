@@ -1,7 +1,17 @@
 import { NgModule } from '@angular/core';
 import { PreloadAllModules, RouterModule, Routes } from '@angular/router';
+import { CegahcovidComponent } from './cegahcovid/cegahcovid.component';
+import { ProductComponent } from './product/product.component';
+import { ProductdetailComponent } from './productdetail/productdetail.component';
+import { MovieComponent } from './movie/movie.component';
+import { MoviedetailComponent } from './moviedetail/moviedetail.component';
+const appRoutes: Routes = [
+  { path: 'product', component: ProductComponent },
+  { path: 'productDetail/:id', component: ProductdetailComponent },
+  { path: 'movie', component: MovieComponent },
+  { path: 'movie/:id', component: MoviedetailComponent },
+  { path: 'covid', component: CegahcovidComponent },
 
-const routes: Routes = [
   /*{
     path: 'home',
     loadChildren: () =>
@@ -16,7 +26,7 @@ const routes: Routes = [
 
 @NgModule({
   imports: [
-    RouterModule.forRoot(routes, { preloadingStrategy: PreloadAllModules }),
+    RouterModule.forRoot(appRoutes, { preloadingStrategy: PreloadAllModules }),
   ],
   exports: [RouterModule],
 })

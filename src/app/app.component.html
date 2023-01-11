@@ -1,16 +1,17 @@
-<ion-app>
+<!-- <ion-app>
+  <ion-menu content-id="content"> </ion-menu>
   <ion-header>
     <ion-toolbar>
       <ion-title>hi {{ username }}</ion-title>
     </ion-toolbar>
   </ion-header>
   <ion-content>
-    <!-- ngikutin nama file -->
-    <app-tgl-hari-ini></app-tgl-hari-ini>
-    <app-product></app-product>
-    <!-- <app-cegahcovid></app-cegahcovid> -->
 
-    <!-- <ion-card>
+    <app-tgl-hari-ini></app-tgl-hari-ini>
+    <app-product [kata]="katadariapp"></app-product>
+    <app-cegahcovid></app-cegahcovid>
+
+    <ion-card>
       <ion-card-header>
         <ion-card-title>Wellcome to {{ judul }}</ion-card-title>
       </ion-card-header>
@@ -21,6 +22,95 @@
         </ion-img>
         quick brown fox jump over the lazy dog
       </ion-card-content>
-    </ion-card> -->
+    </ion-card>
+  </ion-content>
+  <ion-content>
+    <router-outlet id="content"> </router-outlet>
+  </ion-content>
+</ion-app> -->
+<ion-app *ngIf="!user_id">
+  <ion-header>
+    <ion-toolbar>
+      <ion-title>Login</ion-title>
+    </ion-toolbar>
+  </ion-header>
+  <ion-content>
+    <ion-card>
+      <ion-item>
+        <ion-input
+          name="email"
+          type="email"
+          placeholder="your@email.com"
+          [(ngModel)]="username_user"
+        >
+        </ion-input>
+      </ion-item>
+      <ion-item>
+        <ion-input
+          name="password"
+          type="password"
+          placeholder="Password"
+          [(ngModel)]="login_passwd"
+        >
+        </ion-input>
+      </ion-item>
+      <ion-button type="submit" expand="block" (click)="loginDB()"
+        >Login</ion-button
+      >
+      <ion-chip *ngIf="login_error">{{ login_error }}</ion-chip>
+    </ion-card>
+  </ion-content>
+</ion-app>
+
+<ion-app *ngIf="user_id">
+  <!-- side bar -->
+  <ion-menu content-id="content">
+    <ion-header>
+      <ion-toolbar>
+        <ion-title>Menu</ion-title>
+      </ion-toolbar>
+    </ion-header>
+    <ion-content>
+      <ion-menu-toggle>
+        <ion-list>
+          <ion-item>
+            <ion-icon name="star" slot="start"></ion-icon>
+            <ion-label (click)="intro = false" routerLink="/product"
+              >Product List</ion-label
+            >
+          </ion-item>
+          <ion-item>
+            <ion-icon name="heart" slot="start"></ion-icon>
+            <ion-label (click)="intro = false" routerLink="/covid"
+              >Cegah Covid</ion-label
+            >
+          </ion-item>
+          <ion-item>
+            <ion-icon name="people" slot="start"></ion-icon>
+            <ion-label (click)="intro = false" routerLink="/movie"
+              >movieKu</ion-label
+            >
+          </ion-item>
+          <ion-item>
+            <ion-icon name="people" slot="start"></ion-icon>
+            <ion-label (click)="logout()">Logout</ion-label>
+          </ion-item>
+        </ion-list>
+      </ion-menu-toggle>
+    </ion-content>
+  </ion-menu>
+  <!-- end side bar -->
+  <ion-header>
+    <ion-toolbar>
+      <ion-buttons slot="start">
+        <ion-menu-button autoHide="false"></ion-menu-button>
+      </ion-buttons>
+      <ion-title>Halo {{ username }}</ion-title>
+    </ion-toolbar>
+  </ion-header>
+  <ion-content>
+    <router-outlet id="content">
+      <!-- <p *ngIf="intro">ini nanti isinya landing page</p> -->
+    </router-outlet>
   </ion-content>
 </ion-app>
